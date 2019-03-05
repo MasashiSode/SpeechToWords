@@ -8,7 +8,7 @@
 
 言葉から単語を抽出し，wikiのリンクを得るモジュール
 
-- [wikipedia]((https://pypi.org/project/wikipedia/))
+- [wikipedia](https://pypi.org/project/wikipedia/)
 - [pydub](https://github.com/jiaaro/pydub) *
 - [MeCab](http://taku910.github.io/mecab/) *
 - [google speech-to-text](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries) *
