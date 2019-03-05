@@ -1,6 +1,7 @@
 from pydub import AudioSegment
-from io import StringIO
+from io import StringIO, BytesIO
 import io
+
 
 class Converter(object):
     """
@@ -52,9 +53,15 @@ class Converter(object):
         return
 
     def import_audio(self, import_data=None):
-        self.frame_rate = 44100
-        self.audio = AudioSegment.from_file(
-            StringIO(import_data), frame_rate=self.frame_rate)
+        # self.frame_rate = 44100
+        file = BytesIO(import_data)
+        sample_width = 4
+        channels = 1
+        frame_rate = 48000
+        self.audio = AudioSegment.from_file(file,
+            sample_width=sample_width,
+            channels=channels,
+            frame_rate=frame_rate)
         return
 
     def export_audio_file(self, audio_format='raw', export_path=None):
@@ -69,10 +76,14 @@ class Converter(object):
         format = 'raw', 'wav' or 'mp3'.
         """
         buf = io.BytesIO()
+        temp = self.audio
         temp = self.audio.set_frame_rate(16000)
-        temp.sample_width = 2
+        temp = temp.set_sample_width(2)
         temp.export(buf, format=audio_format)
-        return buf.getvalue()
+        # temp.export('test.wav', format=audio_format)
+        # print('test audio exported')
+        duration = temp.duration_seconds
+        return buf.getvalue(), duration
 
 if __name__ == '__main__':
     Conv = Converter()

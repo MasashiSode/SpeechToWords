@@ -1,6 +1,8 @@
 import wikipedia
 import requests
 import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
 
 
 class WordToWiki():
@@ -19,23 +21,23 @@ class WordToWiki():
                 try:
                     self.wiki_url[i] = wikipedia.page(word).url
 
-                except wikipedia.exceptions.DisambiguationError as e:
-                    self.wiki_url[i] = wikipedia.page(e.options[0]).url
+                # except wikipedia.exceptions.DisambiguationError as e:
+                #     self.wiki_url[i] = wikipedia.page(e.options[0]).url
 
                 except wikipedia.exceptions.PageError as e:
                     req = requests.get(self.url, params={'q': word})
                     self.wiki_url[i] = req.url
-                except wikipedia.exceptions.DisambiguationError as e:
+                except:
                     req = requests.get(self.url, params={'q': word})
                     self.wiki_url[i] = req.url
         else:
             try:
                 self.wiki_url = wikipedia.page(words).url
 
-            except wikipedia.exceptions.DisambiguationError as e:
-                self.wiki_url = wikipedia.page(e.options[0]).url
+            # except wikipedia.exceptions.DisambiguationError as e:
+            #     self.wiki_url = wikipedia.page(e.options[0]).url
 
-            except wikipedia.exceptions.PageError as e:
+            except:
                 req = requests.get(self.url, params={'q': words})
                 self.wiki_url = req.url
         return self.wiki_url

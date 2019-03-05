@@ -95,11 +95,15 @@ class SpeechToText():
         """
 
         config = types.RecognitionConfig(
-            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+            # encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
             sample_rate_hertz=16000,
             language_code=self.language_code)
+        # print(config)
         # Detects speech in the audio file
         self.response = self.client.recognize(config, self.audio)
+        # print('-- run --')
+        # print('response: ', self.response)
+        # print('-- run --')
 
     def export_script(self, data_format='txt', export_file='SpeechToText'):
         """
